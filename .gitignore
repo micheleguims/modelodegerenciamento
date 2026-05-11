@@ -1,1 +1,29 @@
-node_modules
+# Dependências
+/node_modules
+/.pnp
+.pnp.js
+
+# Ficheiros de Build (Quando você gera a versão final do site)
+/build
+/dist
+
+# Ficheiros de Configuração Local e Chaves de Segurança
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs de Erros (Gerados pelo NPM ou Firebase)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+firebase-debug.log*
+firebase-debug.log
+
+# Ficheiros do Sistema Operacional (Windows / Mac)
+.DS_Store
+Thumbs.db
+
+# Ficheiros de cache
+.eslintcache

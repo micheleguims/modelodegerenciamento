@@ -5,21 +5,25 @@ import { CRES } from '../utils/constants';
 export default function RecordsView({ role, creFilter, setCreFilter, filteredRecords, handleOpenModal, handleDelete }) {
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
+      
+      {/* Cabeçalho da Página */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">Base de Dados Corporativa</h2>
+          <h2 className="text-2xl font-bold text-[#13335a]">Base de Dados Corporativa</h2>
           <p className="text-slate-500">
             {role === 'admin' ? 'Visualização global de todas as coordenadorias.' : `Visualização restrita aos dados da ${role}.`}
           </p>
         </div>
         <div className="flex items-center gap-3">
+          
+          {/* Filtro */}
           {role === 'admin' && (
-             <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-lg px-3 py-2 shadow-sm">
-               <Filter size={18} className="text-slate-400" />
+             <div className="flex items-center gap-2 bg-white border border-[#e2e8f0] rounded-lg px-3 py-2 shadow-sm focus-within:ring-2 focus-within:ring-[#66b6e3]">
+               <Filter size={18} className="text-[#66b6e3]" />
                <select 
                  value={creFilter}
                  onChange={(e) => setCreFilter(e.target.value)}
-                 className="text-sm font-medium text-slate-600 bg-transparent outline-none cursor-pointer pr-2"
+                 className="text-sm font-bold text-[#13335a] bg-transparent outline-none cursor-pointer pr-2 uppercase"
                >
                  <option value="Todas">Todas as CREs</option>
                  {CRES.map(cre => (
@@ -28,19 +32,23 @@ export default function RecordsView({ role, creFilter, setCreFilter, filteredRec
                </select>
              </div>
           )}
+
+          {/* Botão Principal */}
           <button 
             onClick={() => handleOpenModal()}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors shadow-sm"
+            className="bg-[#13335a] hover:bg-[#13335a]/90 text-white px-4 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-all shadow-md uppercase text-sm"
           >
             <Plus size={18} /> Novo Registro
           </button>
         </div>
       </div>
 
-      <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+      {/* Tabela de Dados */}
+      <div className="bg-white border border-[#e2e8f0] rounded-xl shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-600">
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-800 uppercase font-semibold">
+            {/* Cabeçalho da Tabela - Usando Azul Escuro */}
+            <thead className="bg-[#f0f4f8] border-b-2 border-[#13335a] text-[#13335a] uppercase text-xs font-bold">
               <tr>
                 <th className="px-6 py-4">ID / Origem</th>
                 <th className="px-6 py-4">Título do Documento</th>
@@ -51,58 +59,88 @@ export default function RecordsView({ role, creFilter, setCreFilter, filteredRec
                 <th className="px-6 py-4 text-right">Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[#e2e8f0]">
               {filteredRecords.map(record => (
-                <tr key={record.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={record.id} className="hover:bg-[#f0f4f8] transition-colors">
+                  
+                  {/* ID e CRE */}
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="font-medium text-slate-800">{record.id}</div>
-                    <div className="text-xs text-slate-500">{record.cre}</div>
+                    <div className="font-bold text-[#13335a]">{record.id}</div>
+                    <div className="text-[10px] font-semibold uppercase text-slate-500">{record.cre}</div>
                   </td>
-                  <td className="px-6 py-4 font-medium text-slate-700">{record.title}</td>
+                  
+                  {/* Título */}
+                  <td className="px-6 py-4 font-semibold text-[#13335a]">{record.title}</td>
+                  
+                  {/* Etiquetas de Formato */}
                   <td className="px-6 py-4">
                     {record.type === 'excel' ? 
-                      <span className="flex items-center gap-1 text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-1 rounded-md w-fit"><FileSpreadsheet size={14}/> Planilha</span> : 
-                      <span className="flex items-center gap-1 text-rose-600 bg-rose-50 border border-rose-100 px-2 py-1 rounded-md w-fit"><FileText size={14}/> PDF</span>
+                      <span className="flex items-center gap-1 text-[#13335a] bg-[#f0f4f8] border border-[#13335a]/20 px-2.5 py-1 rounded-md w-fit text-xs font-bold uppercase">
+                        <FileSpreadsheet size={14}/> Planilha
+                      </span> : 
+                      <span className="flex items-center gap-1 text-white bg-[#66b6e3] border border-[#66b6e3] px-2.5 py-1 rounded-md w-fit text-xs font-bold uppercase">
+                        <FileText size={14}/> PDF
+                      </span>
                     }
                   </td>
+                  
+                  {/* Etiquetas de Status */}
                   <td className="px-6 py-4">
-                    <span className={`flex items-center gap-1.5 w-fit px-2.5 py-1 rounded-full text-xs font-bold ${
+                    <span className={`flex items-center gap-1.5 w-fit px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
                       record.status === 'Aprovado' 
-                        ? 'bg-green-100 text-green-700 border border-green-200' 
-                        : 'bg-red-100 text-red-700 border border-red-200'
+                        ? 'bg-emerald-100 text-emerald-700 border border-emerald-200' 
+                        : 'bg-[#ff6666]/10 text-[#ff6666] border border-[#ff6666]/20'
                     }`}>
                       {record.status === 'Aprovado' ? <CheckCircle2 size={12}/> : <AlertCircle size={12}/>}
                       {record.status}
                     </span>
                   </td>
+                  
+                  {/* Download de Anexo */}
                   <td className="px-6 py-4">
                      {record.fileUrl ? (
                        <a 
                          href={record.fileUrl} 
                          download={record.fileName}
-                         className="flex items-center gap-1.5 text-blue-600 hover:text-blue-800 font-medium text-xs bg-blue-50 hover:bg-blue-100 px-2.5 py-1.5 rounded-lg transition-colors w-fit"
+                         className="flex items-center gap-1.5 text-[#66b6e3] hover:text-white font-bold text-xs bg-[#f0f4f8] hover:bg-[#66b6e3] border border-[#e2e8f0] hover:border-[#66b6e3] px-2.5 py-1.5 rounded-lg transition-all w-fit"
                        >
                          <Download size={14} /> {record.fileName.slice(0, 15)}{record.fileName.length > 15 ? '...' : ''}
                        </a>
                      ) : (
-                       <span className="text-slate-400 text-xs italic">Sem anexo</span>
+                       <span className="text-slate-400 text-xs italic font-medium">Sem anexo</span>
                      )}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">{new Date(record.date).toLocaleDateString('pt-BR')}</td>
+                  
+                  {/* Data */}
+                  <td className="px-6 py-4 whitespace-nowrap font-medium text-slate-500">
+                    {new Date(record.date).toLocaleDateString('pt-BR')}
+                  </td>
+                  
+                  {/* Botões de Ação */}
                   <td className="px-6 py-4 text-right">
                     <div className="flex justify-end gap-2">
-                       <button onClick={() => handleOpenModal(record)} className="text-slate-400 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50 transition-colors" title="Editar">
+                       <button onClick={() => handleOpenModal(record)} className="text-[#66b6e3] hover:text-[#13335a] p-2 rounded-lg hover:bg-[#e2e8f0] transition-colors" title="Editar">
                          <Pencil size={18} />
                        </button>
-                       <button onClick={() => handleDelete(record.id)} className="text-slate-400 hover:text-rose-600 p-2 rounded-lg hover:bg-rose-50 transition-colors" title="Excluir">
+                       <button onClick={() => handleDelete(record.id)} className="text-slate-400 hover:text-[#ff6666] p-2 rounded-lg hover:bg-[#ff6666]/10 transition-colors" title="Excluir">
                          <Trash2 size={18} />
                        </button>
                     </div>
                   </td>
                 </tr>
               ))}
+              
+              {/* Caso a tabela esteja vazia */}
               {filteredRecords.length === 0 && (
-                <tr><td colSpan="7" className="text-center py-10 text-slate-500">Nenhum registro encontrado.</td></tr>
+                <tr>
+                  <td colSpan="7" className="text-center py-12">
+                    <div className="flex flex-col items-center justify-center text-slate-400">
+                      <Filter size={32} className="mb-3 opacity-50" />
+                      <p className="font-medium text-[#13335a]">Nenhum registro encontrado.</p>
+                      <p className="text-xs mt-1">Ajuste os filtros ou crie um novo registro.</p>
+                    </div>
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>
