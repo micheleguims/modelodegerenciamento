@@ -23,7 +23,7 @@ export default function InfoView() {
           <h3 className="text-xl font-bold text-[#13335a]">Objetivo Estratégico</h3>
         </div>
         <p className="text-slate-600 leading-relaxed">
-          Validar uma arquitetura de <strong className="text-[#13335a]">alta performance com custos controlados</strong>, testando a viabilidade de Web Apps dedicados (React) em substituição aos fluxos do PowerApps, garantindo maior fluidez e independência técnica.
+          Validar uma arquitetura de <strong className="text-[#13335a]">alta performance com custos controlados</strong>, testando a viabilidade de Web Apps dedicados (React) em substituição aos fluxos do PowerApps, garantindo maior fluidez e praticidade.
         </p>
       </section>
 
@@ -116,7 +116,7 @@ export default function InfoView() {
       {/* Rodapé */}
       <div className="mt-12 pt-6 border-t border-[#e2e8f0] flex flex-col items-center text-center gap-4 text-slate-500">
         <div className="text-xs font-medium">
-          © 2026 Secretaria Municipal de Educação — SME | Desenvolvido com auxílio de IA (Gemini). Michele Guimarães E/CIT/GSD
+          © 2026 Secretaria Municipal de Educação — SME | Piloto desenvolvido com auxílio de IA (Gemini). Michele Guimarães - E/CIT/GSD.
         </div>
       </div>
 
