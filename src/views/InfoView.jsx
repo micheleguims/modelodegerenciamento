@@ -116,7 +116,7 @@ export default function InfoView() {
       {/* Rodapé */}
       <div className="mt-12 pt-6 border-t border-[#e2e8f0] flex flex-col items-center text-center gap-4 text-slate-500">
         <div className="text-xs font-medium">
-          © 2026 Secretaria Municipal de Educação — SME | Piloto desenvolvido com auxílio de IA (Gemini). Michele Guimarães - E/CIT/GSD.
+          © 2026 Secretaria Municipal de Educação — SME | Piloto desenvolvido com auxílio de IA (Gemini). E/CIT/GSD.
         </div>
       </div>
 
