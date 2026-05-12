@@ -2,9 +2,9 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { 
   LayoutDashboard, Files, ShieldAlert, UserCircle, Plus, Trash2, 
   FileSpreadsheet, FileText, Search, Building2, AlertCircle, 
-  CheckCircle2, X, Download, Upload, Pencil, Filter, Rocket, Microscope
+  CheckCircle2, X, Download, Upload, Pencil, Filter, Rocket, Microscope, Menu
 } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 // Firebase
 import { doc, setDoc, collection, onSnapshot, deleteDoc, updateDoc, addDoc } from 'firebase/firestore';
@@ -26,17 +26,19 @@ export default function App() {
   const [loginUser, setLoginUser] = useState('');
   const [loginPass, setLoginPass] = useState('');
   const [loginError, setLoginError] = useState('');
-
   const [role, setRole] = useState('admin'); 
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [creFilter, setCreFilter] = useState('Todas');
-  
+
+  // Estado para Mobile
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Estados de Dados
   const [records, setRecords] = useState([]);
   const [logs, setLogs] = useState([]);
-  
+  const [creFilter, setCreFilter] = useState('Todas');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
-  const [newRecord, setNewRecord] = useState({ title: '', type: 'pdf', status: 'Pendente', fileUrl: null, fileName: null });
+  const [newRecord, setNewRecord] = useState({ title: '', type: 'pdf', status: 'Pendente', fileUrl: null, fileName: null, cre: '' });
 
   // Lê os registros do Firebase em tempo real
   useEffect(() => {
@@ -186,39 +188,71 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col font-sans">
-      <header className="bg-[#13335a] text-white h-16 flex items-center justify-between px-6 sticky top-0 z-20 shadow-md border-b-2 border-[#66b6e3]">
+    <div className="min-h-screen bg-slate-100 flex flex-col font-sans overflow-x-hidden">
+      <header className="bg-[#13335a] text-white h-16 flex items-center justify-between px-4 md:px-6 sticky top-0 z-40 shadow-md border-b-2 border-[#66b6e3]">
         <div className="flex items-center gap-3">
+          {/* Botão Hambúrguer (Aparece só no Mobile) */}
+          <button 
+            onClick={() => setIsMenuOpen(true)}
+            className="md:hidden p-2 text-[#66b6e3] hover:bg-black/20 rounded-lg transition-colors"
+          >
+            <Menu size={24} />
+          </button>
+          
           {/* Ícone com fundo Azul Claro e desenho em Azul Escuro */}
-          <div className="bg-[#66b6e3] text-[#13335a] p-2 rounded-lg shadow-inner">
+          <div className="bg-[#66b6e3] text-[#13335a] p-1.5 md:p-2 rounded-lg shadow-inner hidden sm:block">
             <Building2 size={24} />
           </div>
-          <span className="font-bold text-xl tracking-tight">SME Admin Portal</span>
-          <span className="px-2 py-0.5 bg-[#66b6e3]/20 text-[#66b6e3] text-xs rounded-full font-bold ml-2 border border-[#66b6e3]/30 hidden md:inline-block uppercase tracking-wider">
+          <span className="font-bold text-lg md:text-xl tracking-tight">SME Admin Portal</span>
+          <span className="px-2 py-0.5 bg-[#66b6e3]/20 text-[#66b6e3] text-xs rounded-full font-bold ml-2 border border-[#66b6e3]/30 hidden lg:inline-block uppercase tracking-wider">
             Modo de Testes
           </span>
         </div>
         
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           {/* Identificação do utilizador com um fundo escurecido */}
-          <div className="flex items-center gap-2 bg-black/20 px-4 py-2 rounded-xl border border-[#66b6e3]/30">
+          <div className="flex items-center gap-2 bg-black/20 px-3 py-1.5 md:px-4 md:py-2 rounded-xl border border-[#66b6e3]/30">
             <UserCircle size={20} className="text-[#66b6e3]" />
-            <span className="text-sm font-bold text-white uppercase tracking-tight">
+            <span className="text-xs md:text-sm font-bold text-white uppercase tracking-tight">
               {role === 'admin' ? 'Administrador SME' : role}
             </span>
           </div>
-          <button onClick={handleLogout} className="text-[#66b6e3] hover:text-white text-sm font-bold uppercase transition-colors">
+          <button onClick={handleLogout} className="text-[#66b6e3] hover:text-white text-xs md:text-sm font-bold uppercase transition-colors">
             Sair
           </button>
         </div>
       </header>
 
-      <div className="flex flex-1 overflow-hidden">
-        <aside className="w-64 bg-white border-r border-[#e2e8f0] flex flex-col z-10 shadow-sm hidden md:flex">
-          <nav className="p-4 space-y-2">
+      <div className="flex flex-1 relative">
+        
+        {/* OVERLAY MOBILE: Fundo escuro quando o menu está aberto */}
+        {isMenuOpen && (
+          <div 
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 md:hidden animate-in fade-in"
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
+
+        {/* SIDEBAR: Desliza no celular, fica fixa no desktop */}
+        <aside className={`
+          fixed md:relative top-0 bottom-0 left-0 z-50 md:z-10
+          w-64 bg-white border-r border-[#e2e8f0] flex flex-col shadow-2xl md:shadow-sm
+          transition-transform duration-300 ease-in-out h-full
+          ${isMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        `}>
+          
+          {/* Cabeçalho da Sidebar (Só no Mobile) */}
+          <div className="h-16 md:hidden flex justify-between items-center px-6 border-b border-[#e2e8f0] bg-slate-50">
+            <span className="font-bold text-[#13335a] uppercase tracking-tight">Menu</span>
+            <button onClick={() => setIsMenuOpen(false)} className="p-2 text-slate-400 hover:text-[#13335a] bg-white rounded-full shadow-sm">
+              <X size={20} />
+            </button>
+          </div>
+
+          <nav className="p-4 space-y-2 overflow-y-auto">
             {/* Botão Painel de Controle */}
             <button 
-              onClick={() => setActiveTab('dashboard')} 
+              onClick={() => { setActiveTab('dashboard'); setIsMenuOpen(false); }} 
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all uppercase tracking-tight ${
                 activeTab === 'dashboard' ? 'bg-[#f0f4f8] text-[#13335a] shadow-inner' : 'text-slate-400 hover:bg-[#f0f4f8] hover:text-[#13335a]'
               }`}
@@ -228,7 +262,7 @@ export default function App() {
 
             {/* Botão Base de Registros */}
             <button 
-              onClick={() => setActiveTab('records')} 
+              onClick={() => { setActiveTab('records'); setIsMenuOpen(false); }} 
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all uppercase tracking-tight ${
                 activeTab === 'records' ? 'bg-[#f0f4f8] text-[#13335a] shadow-inner' : 'text-slate-400 hover:bg-[#f0f4f8] hover:text-[#13335a]'
               }`}
@@ -238,7 +272,7 @@ export default function App() {
 
             {/* Botão Apresentação do Piloto */}
             <button 
-              onClick={() => setActiveTab('info')} 
+              onClick={() => { setActiveTab('info'); setIsMenuOpen(false); }} 
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all uppercase tracking-tight ${
                 activeTab === 'info' ? 'bg-[#f0f4f8] text-[#13335a] shadow-inner' : 'text-slate-400 hover:bg-[#f0f4f8] hover:text-[#13335a]'
               }`}
@@ -250,7 +284,7 @@ export default function App() {
             {role === 'admin' && (
               <div className="pt-4 mt-4 border-t border-[#e2e8f0]">
                 <button 
-                  onClick={() => setActiveTab('audit')} 
+                  onClick={() => { setActiveTab('audit'); setIsMenuOpen(false); }} 
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all uppercase tracking-tight ${
                     activeTab === 'audit' ? 'bg-[#13335a] text-white shadow-lg' : 'text-slate-400 hover:bg-[#f0f4f8]'
                   }`}
@@ -262,7 +296,8 @@ export default function App() {
           </nav>
         </aside>
 
-        <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-[#f0f4f8]/50">
+        {/* main mantem o min-w-0 para evitar quebra de layout mobile */}
+        <main className="flex-1 min-w-0 overflow-y-auto p-4 md:p-8 bg-[#f0f4f8]/50">
           <div className="max-w-6xl mx-auto">
             {activeTab === 'dashboard' && <DashboardView role={role} creFilter={creFilter} setCreFilter={setCreFilter} filteredRecords={filteredRecords} records={records} addLog={addLog} />}
             {activeTab === 'records' && <RecordsView role={role} creFilter={creFilter} setCreFilter={setCreFilter} filteredRecords={filteredRecords} handleOpenModal={handleOpenModal} handleDelete={handleDelete} />}
