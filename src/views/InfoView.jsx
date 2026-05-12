@@ -81,7 +81,7 @@ export default function InfoView() {
               </tr>
               <tr className="border-b border-[#e2e8f0] hover:bg-[#f0f4f8] transition-colors">
                 <td className="py-3 px-2 font-medium">IA (Gemini API)</td>
-                <td className="py-3 px-2">Nível Gratuito</td>
+                <td className="py-3 px-2">--</td>
                 <td className="py-3 px-2">~$0.075 / 1M tokens</td>
               </tr>
               <tr className="hover:bg-[#f0f4f8] transition-colors">
