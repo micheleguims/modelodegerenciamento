@@ -40,7 +40,7 @@ export default function DashboardView({ role, creFilter, setCreFilter, filteredR
           <h2 className="text-2xl font-bold text-[#13335a]">Visão Geral</h2>
           <p className="text-slate-500">
             {role === 'admin' 
-              ? (creFilter === 'Todas' ? 'Métricas de monitoramento consolidadas.' : `Métricas para ${creFilter}.`)
+              ? (creFilter === 'Todas' ? 'Resumo consolidado da operação.' : `Indicadores para ${creFilter}.`)
               : `Métricas de monitoramento da ${role}.`}
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function DashboardView({ role, creFilter, setCreFilter, filteredR
                  onChange={(e) => setCreFilter(e.target.value)}
                  className="text-sm font-bold text-[#13335a] bg-transparent outline-none cursor-pointer pr-2 py-0.5 uppercase"
                >
-                 <option value="Todas">Todas as CREs</option>
+                 <option value="Todas">Todos os Setores</option>
                  {CRES.map(cre => (
                    <option key={cre} value={cre}>{cre}</option>
                  ))}
@@ -105,7 +105,7 @@ export default function DashboardView({ role, creFilter, setCreFilter, filteredR
       {role === 'admin' && (
         <div className="bg-white p-6 rounded-xl border border-[#e2e8f0] shadow-sm h-[400px]">
           <h3 className="text-lg font-bold text-[#13335a] mb-6 uppercase tracking-tight">
-            {creFilter === 'Todas' ? 'Volume por Coordenadoria' : `Análise Individual - ${creFilter}`}
+            {creFilter === 'Todas' ? 'Registros por Setor' : `Análise Individual - ${creFilter}`}
           </h3>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>

@@ -8,8 +8,8 @@ export default function AuditView({ logs }) {
       {/* Cabeçalho da Página */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-[#13335a]">Logs de Auditoria</h2>
-          <p className="text-slate-500 font-medium">Rastreabilidade completa de ações na plataforma (Nível Central).</p>
+          <h2 className="text-2xl font-bold text-[#13335a]">Histórico de Atividades</h2>
+          <p className="text-slate-500 font-medium">Registro das ações realizadas na plataforma.</p>
         </div>
       </div>
 
@@ -19,7 +19,7 @@ export default function AuditView({ logs }) {
         {/* Cabeçalho do Terminal */}
         <div className="p-4 bg-black/20 border-b border-[#66b6e3]/30 flex items-center gap-3">
           <ShieldAlert className="text-[#66b6e3]" size={20}/>
-          <span className="font-bold text-[#66b6e3] uppercase tracking-widest text-xs">Registro de Auditoria • Ativo</span>
+          <span className="font-bold text-[#66b6e3] uppercase tracking-widest text-xs">Atividades recentes • Ativo</span>
           <div className="ml-auto flex gap-2">
             <div className="w-3 h-3 rounded-full bg-[#ff6666]/80"></div>
             <div className="w-3 h-3 rounded-full bg-amber-400/80"></div>

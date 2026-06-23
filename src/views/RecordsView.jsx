@@ -9,9 +9,9 @@ export default function RecordsView({ role, creFilter, setCreFilter, filteredRec
       {/* Cabeçalho da Página */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-[#13335a]">Base de Dados Corporativa</h2>
+          <h2 className="text-2xl font-bold text-[#13335a]">Gerenciamento de Registros</h2>
           <p className="text-slate-500">
-            {role === 'admin' ? 'Visualização global de todas as coordenadorias.' : `Visualização restrita aos dados da ${role}.`}
+            {role === 'admin' ? 'Visualização consolidada de todos os setores.' : `Visualização restrita ao setor atual.`}
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -25,7 +25,7 @@ export default function RecordsView({ role, creFilter, setCreFilter, filteredRec
                  onChange={(e) => setCreFilter(e.target.value)}
                  className="text-sm font-bold text-[#13335a] bg-transparent outline-none cursor-pointer pr-2 uppercase"
                >
-                 <option value="Todas">Todas as CREs</option>
+                 <option value="Todas">Todos os Setores</option>
                  {CRES.map(cre => (
                    <option key={cre} value={cre}>{cre}</option>
                  ))}
@@ -50,7 +50,7 @@ export default function RecordsView({ role, creFilter, setCreFilter, filteredRec
             {/* Cabeçalho da Tabela - Azul Escuro */}
             <thead className="bg-[#f0f4f8] border-b-2 border-[#13335a] text-[#13335a] uppercase text-xs font-bold">
               <tr>
-                <th className="px-6 py-4">ID / Origem</th>
+                <th className="px-6 py-4">ID / Setor</th>
                 <th className="px-6 py-4">Título do Documento</th>
                 <th className="px-6 py-4">Formato</th>
                 <th className="px-6 py-4">Status</th>

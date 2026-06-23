@@ -11,8 +11,8 @@ export default function LoginView({ handleLogin, loginError, loginUser, setLogin
           <div className="bg-[#13335a] w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 text-[#66b6e3] shadow-lg shadow-[#13335a]/20">
             <Building2 size={40} />
           </div>
-          <h1 className="text-2xl font-black text-[#13335a] tracking-tight uppercase">SME Portal Login</h1>
-          <p className="text-slate-500 mt-2 font-medium">Acesso Nível Central e Coordenadorias</p>
+          <h1 className="text-2xl font-black text-[#13335a] tracking-tight uppercase">Acessar a Plataforma</h1>
+          <p className="text-slate-500 mt-2 font-medium">Acesso Central e Setores</p>
         </div>
         
         <form onSubmit={handleLogin} className="space-y-5">
@@ -32,7 +32,7 @@ export default function LoginView({ handleLogin, loginError, loginUser, setLogin
               value={loginUser}
               onChange={e => setLoginUser(e.target.value)}
               className="w-full px-4 py-3 bg-[#f0f4f8]/50 border border-[#e2e8f0] rounded-xl focus:ring-2 focus:ring-[#66b6e3] focus:border-[#66b6e3] outline-none transition-all text-[#13335a] font-medium"
-              placeholder="Ex: admin ou usercre1"
+              placeholder="Ex: admin ou setor1"
             />
           </div>
 
@@ -61,22 +61,18 @@ export default function LoginView({ handleLogin, loginError, loginUser, setLogin
           {/* Dicas de Acesso */}
           <div className="pt-6 border-t border-[#e2e8f0] mt-6">
             <div className="bg-[#f0f4f8] p-4 rounded-2xl space-y-2 border border-[#e2e8f0]">
-              <p className="text-[10px] text-slate-400 font-bold uppercase text-center mb-1">Credenciais de Teste (Piloto)</p>
+              <p className="text-[10px] text-slate-400 font-bold uppercase text-center mb-1">Perfis de Demonstração</p>
               <div className="flex justify-between text-xs">
                 <span className="text-slate-500 font-medium text-transform: lowercase">admin / 123</span>
                 <span className="text-[#13335a] font-bold uppercase tracking-tighter">Acesso Total</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-slate-500 font-medium text-transform: lowercase">usercre1 / 123</span>
-                <span className="text-[#66b6e3] font-bold uppercase tracking-tighter">Acesso CRE 01</span>
+                <span className="text-slate-500 font-medium text-transform: lowercase">setor1 / 123</span>
+                <span className="text-[#66b6e3] font-bold uppercase tracking-tighter">Acesso Setor 1</span>
               </div>
             </div>
           </div>
         </form>
-
-        <p className="text-center text-[10px] text-slate-400 mt-8 font-medium uppercase tracking-widest">
-          Secretaria Municipal de Educação — SME
-        </p>
       </div>
     </div>
   );

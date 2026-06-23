@@ -36,7 +36,7 @@ export default function RecordModal({
           <div>
             <h3 className="text-xl font-bold text-[#13335a]">{editingId ? 'Editar Registro' : 'Novo Registro'}</h3>
             <p className="text-xs text-slate-500 mt-1 uppercase tracking-wider font-semibold">
-              {role === 'admin' ? (editingId ? 'Nível Central (Admin)' : 'Cadastro Global') : `Unidade: ${role}`}
+              {role === 'admin' ? (editingId ? 'Administrador (Admin)' : 'Novo registro') : `Setor: ${role}`}
             </p>
           </div>
           <button onClick={() => setIsModalOpen(false)} className="text-[#13335a] hover:bg-white p-2 rounded-full transition-colors">
@@ -60,14 +60,14 @@ export default function RecordModal({
 
           {role === 'admin' && (
             <div>
-              <label className="block text-sm font-bold text-[#13335a] mb-2 text-transform: uppercase">Coordenadoria Regional</label>
+              <label className="block text-sm font-bold text-[#13335a] mb-2 text-transform: uppercase">Setor</label>
               <select
                 required
                 value={newRecord.cre || ''}
                 onChange={e => setNewRecord({...newRecord, cre: e.target.value})}
                 className="w-full px-4 py-3 border border-[#e2e8f0] rounded-xl focus:ring-2 focus:ring-[#66b6e3] focus:border-[#66b6e3] outline-none transition-all bg-white"
               >
-                <option value="" disabled>Selecione uma CRE...</option>
+                <option value="" disabled>Selecione um setor...</option>
                 {cres.map(cre => (
                   <option key={cre} value={cre}>{cre}</option>
                 ))}
@@ -178,7 +178,7 @@ export default function RecordModal({
               className="flex-1 py-3 px-4 bg-[#13335a] text-white rounded-xl hover:bg-[#13335a]/90 font-bold transition-all shadow-md flex justify-center items-center gap-2 text-sm uppercase"
             >
               {editingId ? <CheckCircle2 size={18}/> : <Plus size={18}/>}
-              {editingId ? 'Salvar Alterações' : 'Confirmar Cadastro'}
+              {editingId ? 'Salvar Alterações' : 'Salvar Registro'}
             </button>
           </div>
         </form>

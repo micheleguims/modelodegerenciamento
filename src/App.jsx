@@ -68,7 +68,7 @@ export default function App() {
 
   // Função para salvar Logs no Firestore
   const addLog = async (action) => {
-    const userDisplay = role === 'admin' ? 'Admin SME (Nível Central)' : `Operador ${role}`;
+    const userDisplay = role === 'admin' ? 'Admin (Nível Central)' : `Operador ${role}`;
     try {
       await addDoc(collection(db, 'logs'), {
         user: userDisplay,
@@ -86,11 +86,11 @@ export default function App() {
       setRole('admin'); setIsAuthenticated(true); addLog('Admin fez login'); setLoginError('');
     } else if (loginUser.startsWith('usercre') && loginPass === '123') {
       const creNum = loginUser.replace('usercre', '');
-      const creName = `CRE ${creNum.padStart(2, '0')}`;
+      const creName = `Setor ${creNum.padStart(2, '0')}`;
       if (CRES.includes(creName)) {
         setRole(creName); setIsAuthenticated(true); addLog(`${creName} fez login`); setLoginError('');
       } else {
-        setLoginError('Usuário CRE não encontrado.');
+        setLoginError('Usuário não encontrado.');
       }
     } else {
       setLoginError('Credenciais inválidas.');
@@ -139,7 +139,7 @@ export default function App() {
     if (!newRecord.title) return;
 
     if (role === 'admin' && !newRecord.cre) {
-      alert("Por favor, selecione uma CRE para este registro.");
+      alert("Por favor, selecione um setor para este registro.");
       return;
     }
 
@@ -203,9 +203,9 @@ export default function App() {
           <div className="bg-[#66b6e3] text-[#13335a] p-1.5 md:p-2 rounded-lg shadow-inner hidden sm:block">
             <Building2 size={24} />
           </div>
-          <span className="font-bold text-lg md:text-xl tracking-tight">SME Admin Portal</span>
+          <span className="font-bold text-lg md:text-xl tracking-tight">Admin Dashboard</span>
           <span className="px-2 py-0.5 bg-[#66b6e3]/20 text-[#66b6e3] text-xs rounded-full font-bold ml-2 border border-[#66b6e3]/30 hidden lg:inline-block uppercase tracking-wider">
-            Modo de Testes
+            Demo
           </span>
         </div>
         
@@ -214,7 +214,7 @@ export default function App() {
           <div className="flex items-center gap-2 bg-black/20 px-3 py-1.5 md:px-4 md:py-2 rounded-xl border border-[#66b6e3]/30">
             <UserCircle size={20} className="text-[#66b6e3]" />
             <span className="text-xs md:text-sm font-bold text-white uppercase tracking-tight">
-              {role === 'admin' ? 'Administrador SME' : role}
+              {role === 'admin' ? 'Administrador' : role}
             </span>
           </div>
           <button onClick={handleLogout} className="text-[#66b6e3] hover:text-white text-xs md:text-sm font-bold uppercase transition-colors">
@@ -267,7 +267,7 @@ export default function App() {
                 activeTab === 'records' ? 'bg-[#f0f4f8] text-[#13335a] shadow-inner' : 'text-slate-400 hover:bg-[#f0f4f8] hover:text-[#13335a]'
               }`}
             >
-              <Files size={20} /> Base de Registros
+              <Files size={20} /> Registros
             </button>
 
             {/* Botão Apresentação do Piloto */}
@@ -277,7 +277,7 @@ export default function App() {
                 activeTab === 'info' ? 'bg-[#f0f4f8] text-[#13335a] shadow-inner' : 'text-slate-400 hover:bg-[#f0f4f8] hover:text-[#13335a]'
               }`}
             >
-              <Rocket size={20} /> Sobre o Piloto
+              <Rocket size={20} /> Sobre o Projeto
             </button>
 
             {/* Botão Logs de Auditoria (Apenas Admin) */}

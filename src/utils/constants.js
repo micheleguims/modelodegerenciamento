@@ -1,1 +1,1 @@
-export const CRES = ['CRE 01', 'CRE 02', 'CRE 03', 'CRE 04', 'CRE 05', 'CRE 06', 'CRE 07', 'CRE 08', 'CRE 09', 'CRE 10', 'CRE 11'];
+export const CRES = ['Setor 01', 'Setor 02', 'Setor 03', 'Setor 04', 'Setor 05', 'Setor 06', 'Setor 07', 'Setor 08', 'Setor 09', 'Setor 10', 'Setor 11'];
