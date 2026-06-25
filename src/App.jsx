@@ -82,13 +82,23 @@ export default function App() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (loginUser === 'admin' && loginPass === '123') {
-      setRole('admin'); setIsAuthenticated(true); addLog('Admin fez login'); setLoginError('');
-    } else if (loginUser.startsWith('usercre') && loginPass === '123') {
-      const creNum = loginUser.replace('usercre', '');
+
+    const user = loginUser.trim().toLowerCase();
+
+    if (user === 'admin' && loginPass === '123') {
+      setRole('admin');
+      setIsAuthenticated(true);
+      addLog('Admin fez login');
+      setLoginError('');
+    } else if (user.startsWith('setor') && loginPass === '123') {
+      const creNum = user.replace('setor', '').trim();
       const creName = `Setor ${creNum.padStart(2, '0')}`;
+
       if (CRES.includes(creName)) {
-        setRole(creName); setIsAuthenticated(true); addLog(`${creName} fez login`); setLoginError('');
+        setRole(creName);
+        setIsAuthenticated(true);
+        addLog(`${creName} fez login`);
+        setLoginError('');
       } else {
         setLoginError('Usuário não encontrado.');
       }
