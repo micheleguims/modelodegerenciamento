@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth"; // Já preparando para o login
+import { getAuth } from "firebase/auth"; // Preparando para o login
 
 // Chaves do Projeto Firebase (usando variáveis de ambiente para segurança)
 const firebaseConfig = {

@@ -103,38 +103,41 @@ export default function DashboardView({ role, creFilter, setCreFilter, filteredR
       </div>
 
       {role === 'admin' && (
-        <div className="bg-white p-6 rounded-xl border border-[#e2e8f0] shadow-sm h-[400px]">
+        <div className="bg-white p-6 rounded-xl border border-[#e2e8f0] shadow-sm h-[400px] min-w-0">
           <h3 className="text-lg font-bold text-[#13335a] mb-6 uppercase tracking-tight">
-            {creFilter === 'Todas' ? 'Registros por Setor' : `Análise Individual - ${creFilter}`}
+            {creFilter === 'Todas' ? 'Registros por Setor' : `Resumo do Setor - ${creFilter}`}
           </h3>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-              <XAxis 
-                dataKey="name" 
-                axisLine={false} 
-                tickLine={false} 
-                tick={{fill: '#13335a', fontSize: 10, fontWeight: 'bold'}} 
-              />
-              <YAxis 
-                axisLine={false} 
-                tickLine={false} 
-                tick={{fill: '#94a3b8', fontSize: 12}} 
-              />
-              <Tooltip 
-                cursor={{fill: '#f0f4f8'}} 
-                contentStyle={{
-                  borderRadius: '12px', 
-                  border: 'none', 
-                  boxShadow: '0 10px 15px -3px rgba(19, 51, 90, 0.1)',
-                  backgroundColor: '#fff',
-                  color: '#13335a'
-                }} 
-              />
-              {/* Barra no Azul Claro da Identidade */}
-              <Bar dataKey="Registros" fill="#66b6e3" radius={[4, 4, 0, 0]} barSize={40} />
-            </BarChart>
-          </ResponsiveContainer>
+          <div>
+              <ResponsiveContainer width="100%" height="100%">
+          
+                <BarChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                  <XAxis 
+                    dataKey="name" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{fill: '#13335a', fontSize: 10, fontWeight: 'bold'}} 
+                  />
+                  <YAxis 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{fill: '#94a3b8', fontSize: 12}} 
+                  />
+                  <Tooltip 
+                    cursor={{fill: '#f0f4f8'}} 
+                    contentStyle={{
+                      borderRadius: '12px', 
+                      border: 'none', 
+                      boxShadow: '0 10px 15px -3px rgba(19, 51, 90, 0.1)',
+                      backgroundColor: '#fff',
+                      color: '#13335a'
+                    }} 
+                  />
+                  {/* Barra no Azul Claro da Identidade */}
+                  <Bar dataKey="Registros" fill="#66b6e3" radius={[4, 4, 0, 0]} barSize={40} />
+                </BarChart>
+              </ResponsiveContainer>
+          </div>
         </div>
       )}
     </div>
